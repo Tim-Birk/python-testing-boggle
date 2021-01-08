@@ -37,8 +37,16 @@ body {
   border-radius: 3px;
 }
 
+#score-timer {
+  font-size: 1.25rem;
+  font-weight: bold;
+  min-width: 300px;
+  display: flex;
+  justify-content: space-around;
+}
+
 #guess-form {
-  margin: 25px 0;
+  margin-bottom: 20px;
 }
 
 #guess {
@@ -56,4 +64,18 @@ body {
   outline: none;
   border: none;
   border-radius: 5px;
+}
+
+#message {
+  padding: 10px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+#message.success {
+  background: rgb(205, 255, 205);
+}
+
+#message.error {
+  background: rgb(255, 205, 205);
 }

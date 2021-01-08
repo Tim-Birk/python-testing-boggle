@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Boggle!</title>
     <link rel="stylesheet" href="/static/base.css" />
-</head>
-<body>
+  </head>
+  <body>
     <main class="container">
-        <h1>Boggle!</h1>
-        {% block content %} {% endblock %}
+      <h1>Boggle!</h1>
+      {% block content %} {% endblock %}
     </main>
 
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
     <script src="/static/app.js"></script>
-</body>
+  </body>
 </html>
