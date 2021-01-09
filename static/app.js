@@ -2,21 +2,28 @@ const $guessForm = $("#guess-form");
 const $guessWord = $("#guess");
 const $message = $("#message");
 const $score = $("#score");
+const $timer = $("#timer");
+let gameOver = false;
 
 /** Event listener for word guessing form submit event */
 $guessForm.on("submit", async (e) => {
   e.preventDefault();
+  // check if game over
+  if (gameOver) {
+    //  don't allow any more words to be submitted
+    return;
+  }
 
   try {
     // send request to the server with word that user entered to check the word
     const response = await axios.post(`/guess`, { guess: $guessWord.val() });
 
-    // Destructure response the guessed word and the server's result of checking the guessed word
+    // Destructure response with the guessed word and the server's result of checking the guessed word
     const { word, result } = response.data;
     // Display a user friendly message based on result and update the score if the word was accepted
     displayMessageUpdateScore(word, result);
   } catch (err) {
-      console.log(err)
+    console.log(err);
   }
 });
 
@@ -59,3 +66,28 @@ const displayMessageUpdateScore = (word, result) => {
 const updateScore = (word) => {
   $score.text(Number($score.text()) + word.length);
 };
+
+/** Starts a 60 second timer.  When the time gets to zero it prevents no more words from being submitted 
+  and displays a game over message to the user */
+const startTimer = () => {
+  time = 60;
+
+  let x = setInterval(() => {
+    $timer.text(time);
+    time--;
+    if (time < 0) {
+      gameOver = true;
+      alertGameOver();
+      clearInterval(x);
+    }
+  }, 1000);
+};
+
+/** Display a game over message to the user */
+const alertGameOver = () => {
+  $message.text("The game is over.");
+  $message.addClass("error");
+  $message.removeClass("success");
+};
+
+$(startTimer());
