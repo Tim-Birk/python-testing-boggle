@@ -20,6 +20,16 @@ def display_game():
     """
     board = boggle_game.make_board()
     session['board'] = board
+
+    # initialize games_played and high_score if it doesn't exist yet
+    try:
+        games_played = session["games_played"]
+        high_score = session["high_score"]
+    except:
+        session["games_played"] = 0
+        session["high_score"] = 0
+
+
     return render_template("game.html")
 
 
@@ -43,3 +53,33 @@ def send_guess():
     result = boggle_game.check_valid_word(session["board"], guess)
 
     return jsonify({"word": guess, "result": result})
+
+@app.route("/game-over", methods=["POST"])
+def handleGameOver():
+    """
+    Accepts
+      score: the score from the previous game 
+
+    Sets the updated session variables associated with the high_score and games_played to be used to set on the client 
+
+    Returns the following response to the client:
+        {
+          "newHighScore": <boolean indicating if new high score was set>
+        }
+    """
+    # get previous game score from request
+    score = request.json["score"]
+    
+    # get current high_score and games_played from session 
+    high_score = session['high_score']
+    games_played = session["games_played"]
+
+    # update high_score and games_played with new values
+    high_score = max(int(score), int(high_score))
+    games_played += 1
+
+    # set new values in session
+    session['high_score'] = high_score
+    session['games_played'] = games_played
+
+    return jsonify({"newHighScore": int(high_score) == int(score)})

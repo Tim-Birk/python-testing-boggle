@@ -1,3 +1,18 @@
+html {
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  min-height: 100vh;
+}
 body {
   font-family: sans-serif;
 }
@@ -9,12 +24,22 @@ body {
   justify-content: center;
 }
 
+#title {
+  margin-bottom: 0;
+}
+
+#player-info {
+  min-width: 300px;
+  display: flex;
+  justify-content: space-around;
+}
+
 #board {
   border: 7px solid rgb(30, 87, 255);
   border-radius: 5px;
   background: rgb(87, 193, 255);
-  width: 400px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   padding: 4px;
@@ -23,7 +48,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-column-gap: 5px;
-  padding: 3px;
+  padding: 1px;
 }
 
 .cell {
@@ -54,6 +79,7 @@ body {
   font-size: 1.15rem;
   border-radius: 3px;
   outline: none;
+  text-transform: lowercase;
 }
 
 #btn-guess {
@@ -78,4 +104,29 @@ body {
 
 #message.error {
   background: rgb(255, 205, 205);
+}
+
+#words {
+  padding-left: 0;
+  columns: 3;
+}
+
+#already-accepted {
+  padding: 20px;
+  background: rgba(194, 240, 255, 0.7);
+  color: rgb(3, 3, 87);
+  border-radius: 5px;
+  margin-top: 15px;
+  min-width: 300px;
+  border: 1px solid rgb(3, 3, 87);
+}
+
+#already-accepted h4 {
+  margin-top: 0;
+  text-align: center;
+  text-decoration: underline;
+}
+
+#words li {
+  margin-left: 25px;
 }
