@@ -43,6 +43,7 @@ body {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   padding: 4px;
+  margin: 0 auto;
 }
 .row {
   display: grid;

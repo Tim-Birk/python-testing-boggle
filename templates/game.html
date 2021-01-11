@@ -1,47 +1,50 @@
 {% extends 'base.html' %} {% block content %}
 
-<div id="player-info">
-  <p>High Score: <span id="high-score">{{session['high_score']}}</span></p>
-  <p>
-    Games Played: <span id="games-played">{{session['games_played']}}</span>
-  </p>
-</div>
+<div id="game1">
+  <div id="player-info">
+    <p>High Score: <span id="high-score">{{session['high_score']}}</span></p>
+    <p>
+      Games Played: <span id="games-played">{{session['games_played']}}</span>
+    </p>
+  </div>
 
-<div id="board">
-  {% for row in session['board'] %}
-  <div class="row">
-    {% for letter in row %}
-    <div class="cell">{{letter}}</div>
+  <div id="board">
+    {% for row in session['board'] %}
+    <div class="row">
+      {% for letter in row %}
+      <div class="cell">{{letter}}</div>
+      {% endfor %}
+    </div>
     {% endfor %}
   </div>
-  {% endfor %}
+
+  <div id="score-timer">
+    <p>Score: <span id="score">0</span></p>
+    <p>Timer: <span id="timer">60</span></p>
+  </div>
+
+  <form id="guess-form" method="POST" autocomplete="off">
+    <input
+      id="guess"
+      type="text"
+      name="guess"
+      placeholder="Enter Guess"
+      autofocus
+      onkeyup="this.value = this.value.toLowerCase();"
+    />
+    <button id="btn-guess">Guess</button>
+  </form>
+
+  <div id="message">
+    <!-- displays a message to the user based on the word they guessed -->
+  </div>
+
+  <div id="already-accepted">
+    <h4>Accepted Words:</h4>
+    <ul id="words">
+      <!-- shows words guessed by the user that have been accepted -->
+    </ul>
+  </div>
 </div>
 
-<div id="score-timer">
-  <p>Score: <span id="score">0</span></p>
-  <p>Timer: <span id="timer">60</span></p>
-</div>
-
-<form id="guess-form" method="POST" autocomplete="off">
-  <input
-    id="guess"
-    type="text"
-    name="guess"
-    placeholder="Enter Guess"
-    autofocus
-    onkeyup="this.value = this.value.toLowerCase();"
-  />
-  <button id="btn-guess">Guess</button>
-</form>
-
-<div id="message">
-  <!-- displays a message to the user based on the word they guessed -->
-</div>
-
-<div id="already-accepted">
-  <h4>Accepted Words:</h4>
-  <ul id="words">
-    <!-- shows words guessed by the user that have been accepted -->
-  </ul>
-</div>
 {% endblock %}
