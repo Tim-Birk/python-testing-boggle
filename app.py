@@ -1,8 +1,6 @@
 from boggle import Boggle
-from flask import Flask, render_template, session, request, make_response, jsonify
+from flask import Flask, render_template, session, request, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-
-boggle_game = Boggle()
 
 app = Flask(__name__)
 
@@ -10,6 +8,8 @@ app.config['SECRET_KEY'] = "oh-so-secret"
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 debug = DebugToolbarExtension(app)
+
+boggle_game = Boggle()
 
 @app.route("/")
 def display_game():
@@ -22,12 +22,8 @@ def display_game():
     session['board'] = board
 
     # initialize games_played and high_score if it doesn't exist yet
-    try:
-        games_played = session["games_played"]
-        high_score = session["high_score"]
-    except:
-        session["games_played"] = 0
-        session["high_score"] = 0
+    games_played = session.get("games_played",0)
+    high_score = session.get("high_score",0)
 
 
     return render_template("game.html")
@@ -47,10 +43,12 @@ def send_guess():
           "result": string that contains flag indicating if the word is valid after checking
         }
     """
-    guess = request.json["guess"]
     
+    guess = request.json["guess"]
+    board = session["board"]
+
     # check word is valid
-    result = boggle_game.check_valid_word(session["board"], guess)
+    result = boggle_game.check_valid_word(board, guess)
 
     return jsonify({"word": guess, "result": result})
 
