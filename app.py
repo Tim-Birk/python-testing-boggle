@@ -22,9 +22,11 @@ def display_game():
     session['board'] = board
 
     # initialize games_played and high_score if it doesn't exist yet
-    games_played = session.get("games_played",0)
-    high_score = session.get("high_score",0)
-
+    games_played = session.get("games_played", 0)
+    high_score = session.get("high_score", 0)
+    # set session variables in case they didn't previously exist
+    session["games_played"] = games_played
+    session["high_score"] = high_score
 
     return render_template("game.html")
 
